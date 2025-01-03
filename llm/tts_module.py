@@ -1,85 +1,67 @@
 import pyttsx3
 import logging
+import threading
 
-class TextToSpeech:
+# Set up logger
+logger = logging.getLogger(__name__)
+
+class TTSModule:
     def __init__(self):
-        self.logger = logging.getLogger(__name__)
+        self.engine = pyttsx3.init()
+        self.is_speaking = False
+        self._lock = threading.Lock()
+        
+        # Default settings - explicitly enabled
+        self.settings = {
+            'internal_enabled': True,  # Default to ON
+            'external_enabled': True,  # Default to ON
+            'rate': 150,
+            'volume': 1.0,
+            'voice': None
+        }
+        
+        # Apply default settings immediately
+        self.apply_settings()
+        logger.info("TTS initialized with default settings enabled")
+
+    def apply_settings(self):
         try:
-            self.engine = pyttsx3.init()
-            
-            # Configure the engine
-            self.engine.setProperty('rate', 150)    # Speed of speech
-            self.engine.setProperty('volume', 0.9)  # Volume (0.0 to 1.0)
-            
-            # Get available voices and set a good one
-            voices = self.engine.getProperty('voices')
-            if voices:
-                # Try to find a female voice
-                female_voice = next((voice for voice in voices if 'female' in voice.name.lower()), None)
-                if female_voice:
-                    self.engine.setProperty('voice', female_voice.id)
-                else:
-                    # Use the first available voice
-                    self.engine.setProperty('voice', voices[0].id)
-            
-            self.logger.info("TTS engine initialized successfully")
+            self.engine.setProperty('rate', self.settings['rate'])
+            self.engine.setProperty('volume', self.settings['volume'])
+            if self.settings['voice']:
+                self.engine.setProperty('voice', self.settings['voice'])
+            logger.info(f"TTS settings applied: {self.settings}")
         except Exception as e:
-            self.logger.error(f"Failed to initialize TTS engine: {str(e)}")
-            raise
+            logger.error(f"Error applying TTS settings: {e}")
 
-    def speak(self, text):
-        """Speak the given text"""
+    def update_settings(self, new_settings):
         try:
-            if not text:
-                self.logger.warning("Empty text provided to TTS")
-                return
-                
-            self.logger.info(f"Speaking text (length: {len(text)})")
-            self.engine.say(text)
-            self.engine.runAndWait()
-            self.logger.info("Finished speaking")
+            self.settings.update(new_settings)
+            self.apply_settings()
+            logger.info("TTS settings updated successfully")
+            return True
         except Exception as e:
-            self.logger.error(f"Error in TTS speak: {str(e)}")
-            raise
+            logger.error(f"Error updating TTS settings: {e}")
+            return False
 
-    def stop(self):
-        """Stop any ongoing speech and clean up"""
+    def should_speak(self, is_internal=False):
+        """Check if TTS should be used based on message type"""
+        return (self.settings['internal_enabled'] if is_internal 
+                else self.settings['external_enabled'])
+
+    def speak(self, text, is_internal=False):
+        """Speak text if appropriate setting is enabled"""
+        if not self.should_speak(is_internal):
+            return False
+            
         try:
-            self.engine.stop()
-            self.logger.info("TTS stopped")
+            with self._lock:
+                self.is_speaking = True
+                self.engine.say(text)
+                self.engine.runAndWait()
+                self.is_speaking = False
+            return True
         except Exception as e:
-            self.logger.error(f"Error stopping TTS: {str(e)}")
-
-# # File: llm/tts_module.py
-# # Purpose: Provides a wrapper for offline Text-to-Speech synthesis using Coqui TTS.
-
-# import os
-# import subprocess
-# import threading
-# from TTS.api import TTS
-
-
-# class TextToSpeech:
-#     def __init__(self, tts_model="tts_models/en/ljspeech/tacotron2-DDC"):
-#         """Initialize TTS with the specified model."""
-#         self.tts = TTS(tts_model)
-#         self.lock = threading.Lock()  # Prevent overlapping TTS calls
-
-#     def speak(self, text, output_path="output.wav"):
-#         """Generate speech from text and play it."""
-#         with self.lock:  # Ensure only one TTS playback at a time
-#             print("[TTS] Generating speech...")
-#             self.tts.tts_to_file(text=text, file_path=output_path)
-#             self._play_audio(output_path)
-
-#     def _play_audio(self, file_path):
-#         """Play the generated audio file and wait for completion."""
-#         try:
-#             if os.name == "posix":  # Linux/Mac
-#                 subprocess.run(["aplay", file_path], check=True)
-#             elif os.name == "nt":  # Windows
-#                 subprocess.run(["powershell", "-c", f"(New-Object Media.SoundPlayer '{file_path}').PlaySync()"], check=True)
-#             else:
-#                 raise NotImplementedError("Audio playback not supported for this OS.")
-#         except subprocess.CalledProcessError as e:
-#             print(f"[TTS] Error playing audio: {e}")
+            logger.error(f"TTS error: {e}")
+            self.is_speaking = False
+            return False

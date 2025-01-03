@@ -1,33 +1,356 @@
-2025-01-02 18:25:38,607 - INFO - === Logs cleared ===
-2025-01-02 18:25:44,380 - INFO - Starting system...
-2025-01-02 18:26:19,445 - INFO - System started successfully on cpu
-2025-01-02 18:26:53,695 - INFO - Processing prompt: What is my name?
-2025-01-02 18:30:14,796 - INFO - Successfully generated response
-2025-01-02 18:30:14,797 - INFO - Attempting to speak response
-2025-01-02 18:42:29,093 - INFO - Starting system...
-2025-01-02 18:42:31,269 - INFO - System started successfully on cpu
-2025-01-02 18:43:05,695 - INFO - Processing prompt: What is my name?
-2025-01-02 18:43:17,510 - INFO - Successfully generated response
-2025-01-02 18:43:17,510 - INFO - Attempting to speak response
-2025-01-02 18:43:30,996 - INFO - Processing prompt: My name is Anthony
-2025-01-02 18:43:38,242 - INFO - Successfully generated response
-2025-01-02 18:43:38,242 - INFO - Attempting to speak response
-2025-01-02 18:43:38,242 - ERROR - TTS failed: run loop already started
-2025-01-02 18:44:03,872 - INFO - Processing prompt: Remember my name, keep in your memory that my name is Anthony
-2025-01-02 18:44:25,229 - INFO - Successfully generated response
-2025-01-02 18:44:25,229 - INFO - Attempting to speak response
-2025-01-02 18:44:25,230 - ERROR - TTS failed: run loop already started
-2025-01-02 18:45:16,493 - INFO - Processing prompt: What is your name, what model are you, and what limitations on what you can talk about do you have?
-2025-01-02 18:45:57,419 - INFO - Successfully generated response
-2025-01-02 18:45:57,419 - INFO - Attempting to speak response
-2025-01-02 18:45:57,419 - ERROR - TTS failed: run loop already started
-2025-01-02 18:46:35,677 - INFO - Processing prompt: what version of the model are you?
-2025-01-02 18:48:21,176 - INFO - Successfully generated response
-2025-01-02 18:48:21,177 - INFO - Attempting to speak response
-2025-01-02 18:48:21,177 - ERROR - TTS failed: run loop already started
-2025-01-02 21:17:57,928 - INFO - Processing prompt: What is my name?
-2025-01-02 21:18:15,924 - INFO - Successfully generated response
-2025-01-02 21:18:15,924 - INFO - Attempting to speak response
-2025-01-02 21:18:15,924 - ERROR - TTS failed: run loop already started
-2025-01-02 21:18:33,666 - INFO - Stopping system...
-2025-01-02 21:18:34,818 - INFO - System stopped successfully
+2025-01-03 05:46:06,949 - INFO - Logs cleared
+2025-01-03 05:52:36,497 - INFO - Found 38 models
+2025-01-03 05:54:59,100 - INFO - Cleanup completed successfully
+2025-01-03 05:54:59,368 - INFO - Cleanup completed successfully
+2025-01-03 05:55:50,632 - INFO - Starting system...
+2025-01-03 05:55:50,632 - ERROR - Error starting system: Model darkidol.gguf not found in configured directories
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 156, in start_system
+    raise FileNotFoundError(f"Model {model_name} not found in configured directories")
+FileNotFoundError: Model darkidol.gguf not found in configured directories
+2025-01-03 05:57:37,598 - INFO - Found 38 models
+2025-01-03 05:57:41,968 - INFO - Starting system...
+2025-01-03 05:57:41,969 - ERROR - Error starting system: Model darkidol.gguf not found in configured directories
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 156, in start_system
+    raise FileNotFoundError(f"Model {model_name} not found in configured directories")
+FileNotFoundError: Model darkidol.gguf not found in configured directories
+2025-01-03 06:01:38,059 - INFO - Found 38 models
+2025-01-03 06:01:56,922 - INFO - Found 38 models
+2025-01-03 06:02:02,902 - INFO - Found 38 models
+2025-01-03 06:02:11,547 - INFO - Starting system...
+2025-01-03 06:02:11,547 - ERROR - Error starting system: Model darkidol.gguf not found in configured directories
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 156, in start_system
+    raise FileNotFoundError(f"Model {model_name} not found in configured directories")
+FileNotFoundError: Model darkidol.gguf not found in configured directories
+2025-01-03 06:04:19,063 - INFO - Found 38 models
+2025-01-03 06:04:21,075 - INFO - Starting system...
+2025-01-03 06:04:21,075 - ERROR - Error starting system: Model darkidol.gguf not found in configured directories
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 156, in start_system
+    raise FileNotFoundError(f"Model {model_name} not found in configured directories")
+FileNotFoundError: Model darkidol.gguf not found in configured directories
+2025-01-03 06:04:59,098 - INFO - Starting system...
+2025-01-03 06:04:59,099 - ERROR - Error starting system: Model darkidol.gguf not found in configured directories
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 156, in start_system
+    raise FileNotFoundError(f"Model {model_name} not found in configured directories")
+FileNotFoundError: Model darkidol.gguf not found in configured directories
+2025-01-03 06:05:43,965 - INFO - Cleanup completed successfully
+2025-01-03 06:05:50,435 - INFO - Cleanup completed successfully
+2025-01-03 06:05:54,670 - INFO - Cleanup completed successfully
+2025-01-03 06:05:57,938 - INFO - Cleanup completed successfully
+2025-01-03 06:06:02,902 - INFO - Found 38 models
+2025-01-03 06:06:08,135 - INFO - Starting system...
+2025-01-03 06:06:08,136 - ERROR - Error starting system: Model darkidol.gguf not found in configured directories
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 169, in start_system
+    raise FileNotFoundError(f"Model {model_name} not found in configured directories")
+FileNotFoundError: Model darkidol.gguf not found in configured directories
+2025-01-03 06:06:26,731 - INFO - Found 38 models
+2025-01-03 06:06:27,355 - INFO - Found 38 models
+2025-01-03 06:08:58,840 - INFO - Found 38 models
+2025-01-03 06:09:00,044 - INFO - Found 38 models
+2025-01-03 06:09:01,257 - INFO - Found 38 models
+2025-01-03 06:09:03,423 - INFO - Starting system...
+2025-01-03 06:09:03,424 - ERROR - Error starting system: Model [object Object] not found in configured directories
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 169, in start_system
+    raise FileNotFoundError(f"Model {model_name} not found in configured directories")
+FileNotFoundError: Model [object Object] not found in configured directories
+2025-01-03 06:10:19,167 - INFO - Found 38 models
+2025-01-03 06:10:20,737 - INFO - Found 38 models
+2025-01-03 06:10:23,057 - INFO - Starting system...
+2025-01-03 06:10:23,058 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:16:34,337 - INFO - Found 38 models
+2025-01-03 06:16:36,084 - INFO - Found 38 models
+2025-01-03 06:16:38,308 - INFO - Starting system...
+2025-01-03 06:16:38,309 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:19:18,395 - INFO - Found 38 models
+2025-01-03 06:19:20,700 - INFO - Found 38 models
+2025-01-03 06:19:24,518 - INFO - Starting system...
+2025-01-03 06:19:24,518 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:20:27,005 - INFO - Found 38 models
+2025-01-03 06:20:29,287 - INFO - Starting system...
+2025-01-03 06:20:29,287 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:22:51,633 - INFO - Cleanup completed successfully
+2025-01-03 06:22:59,091 - INFO - Cleanup completed successfully
+2025-01-03 06:23:54,754 - INFO - Cleanup completed successfully
+2025-01-03 06:23:59,063 - INFO - Cleanup completed successfully
+2025-01-03 06:24:06,516 - INFO - Cleanup completed successfully
+2025-01-03 06:24:10,746 - INFO - Found 38 models
+2025-01-03 06:24:12,584 - INFO - Starting system...
+2025-01-03 06:24:12,584 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:27:22,671 - INFO - Found 38 models
+2025-01-03 06:27:23,995 - INFO - Starting system...
+2025-01-03 06:27:23,996 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:28:06,148 - INFO - Found 38 models
+2025-01-03 06:28:07,348 - INFO - Found 38 models
+2025-01-03 06:28:08,273 - INFO - Starting system...
+2025-01-03 06:28:08,273 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:30:07,376 - INFO - Found 38 models
+2025-01-03 06:30:08,538 - INFO - Starting system...
+2025-01-03 06:30:08,538 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:30:21,092 - INFO - Found 38 models
+2025-01-03 06:31:19,449 - INFO - Found 38 models
+2025-01-03 06:31:20,601 - INFO - Starting system...
+2025-01-03 06:31:20,601 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:31:22,619 - INFO - Found 38 models
+2025-01-03 06:31:24,024 - INFO - Found 38 models
+2025-01-03 06:31:24,982 - INFO - Starting system...
+2025-01-03 06:31:25,202 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:33:30,970 - INFO - Found 38 models
+2025-01-03 06:33:36,825 - INFO - Starting system...
+2025-01-03 06:33:36,825 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:37:54,417 - INFO - Cleanup completed successfully
+2025-01-03 06:38:06,470 - INFO - Found 39 models
+2025-01-03 06:38:08,140 - INFO - Found 39 models
+2025-01-03 06:38:10,217 - INFO - Starting system...
+2025-01-03 06:38:10,217 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:39:35,561 - INFO - Cleanup completed successfully
+2025-01-03 06:39:51,737 - INFO - Cleanup completed successfully
+2025-01-03 06:39:55,162 - INFO - Cleanup completed successfully
+2025-01-03 06:39:58,406 - INFO - Cleanup completed successfully
+2025-01-03 06:40:00,729 - INFO - Found 39 models
+2025-01-03 06:40:02,110 - INFO - Found 39 models
+2025-01-03 06:40:05,277 - INFO - Found 39 models
+2025-01-03 06:40:06,352 - INFO - Starting system...
+2025-01-03 06:40:06,353 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:40:18,886 - INFO - Cleanup completed successfully
+2025-01-03 06:40:23,140 - INFO - Cleanup completed successfully
+2025-01-03 06:40:25,096 - INFO - Cleanup completed successfully
+2025-01-03 06:42:50,020 - INFO - Found 3 models
+2025-01-03 06:42:52,216 - INFO - Found 3 models
+2025-01-03 06:42:54,928 - INFO - Starting system...
+2025-01-03 06:42:54,928 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 148, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:44:26,458 - INFO - Cleanup completed successfully
+2025-01-03 06:44:29,717 - INFO - Cleanup completed successfully
+2025-01-03 06:44:42,457 - INFO - Cleanup completed successfully
+2025-01-03 06:45:27,291 - INFO - Cleanup completed successfully
+2025-01-03 06:45:35,549 - INFO - Cleanup completed successfully
+2025-01-03 06:46:39,250 - INFO - Cleanup completed successfully
+2025-01-03 06:48:05,645 - INFO - Cleanup completed successfully
+2025-01-03 06:48:08,172 - INFO - Found 3 models
+2025-01-03 06:48:09,546 - INFO - Starting system...
+2025-01-03 06:48:09,547 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 149, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:49:25,077 - INFO - Found 3 models
+2025-01-03 06:49:26,363 - INFO - Starting system...
+2025-01-03 06:49:26,364 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 149, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:49:27,935 - INFO - Found 3 models
+2025-01-03 06:49:29,458 - INFO - Starting system...
+2025-01-03 06:49:29,458 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 149, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:50:54,114 - INFO - Found 3 models
+2025-01-03 06:50:55,241 - INFO - Starting system...
+2025-01-03 06:50:55,242 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 149, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:50:56,219 - INFO - Found 3 models
+2025-01-03 06:50:56,866 - INFO - Found 3 models
+2025-01-03 06:50:59,409 - INFO - Starting system...
+2025-01-03 06:50:59,409 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 149, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:51:10,807 - INFO - Cleanup completed successfully
+2025-01-03 06:51:17,249 - INFO - Cleanup completed successfully
+2025-01-03 06:51:20,452 - INFO - Cleanup completed successfully
+2025-01-03 06:51:25,785 - INFO - Cleanup completed successfully
+2025-01-03 06:51:36,241 - INFO - Cleanup completed successfully
+2025-01-03 06:51:44,752 - INFO - Cleanup completed successfully
+2025-01-03 06:51:54,577 - INFO - Cleanup completed successfully
+2025-01-03 06:52:53,782 - INFO - Cleanup completed successfully
+2025-01-03 06:53:14,094 - INFO - Cleanup completed successfully
+2025-01-03 06:54:36,358 - INFO - Cleanup completed successfully
+2025-01-03 06:54:44,884 - INFO - Cleanup completed successfully
+2025-01-03 06:54:58,549 - INFO - Cleanup completed successfully
+2025-01-03 06:55:17,443 - INFO - Cleanup completed successfully
+2025-01-03 06:55:22,777 - INFO - Cleanup completed successfully
+2025-01-03 06:55:26,024 - INFO - Found 3 models
+2025-01-03 06:55:27,730 - INFO - Starting system...
+2025-01-03 06:55:27,730 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 149, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 06:55:49,507 - INFO - Cleanup completed successfully
+2025-01-03 06:55:49,793 - INFO - Cleanup completed successfully
+2025-01-03 07:00:16,521 - INFO - Found 3 models
+2025-01-03 07:00:17,745 - INFO - Starting system...
+2025-01-03 07:00:17,746 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 149, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 07:03:11,989 - INFO - Cleanup completed successfully
+2025-01-03 07:03:21,614 - INFO - Cleanup completed successfully
+2025-01-03 07:03:24,789 - INFO - Cleanup completed successfully
+2025-01-03 07:03:44,140 - INFO - Cleanup completed successfully
+2025-01-03 07:03:49,602 - INFO - Cleanup completed successfully
+2025-01-03 07:03:54,906 - INFO - Cleanup completed successfully
+2025-01-03 07:03:56,884 - INFO - Cleanup completed successfully
+2025-01-03 07:14:41,505 - INFO - Found 3 models
+2025-01-03 07:14:44,633 - INFO - Found 3 models
+2025-01-03 07:14:48,076 - INFO - Found 3 models
+2025-01-03 07:14:53,167 - INFO - Starting system...
+2025-01-03 07:14:53,167 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 149, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 07:15:11,040 - INFO - Starting system...
+2025-01-03 07:15:11,041 - ERROR - Error starting system: No model specified
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 149, in start_system
+    raise ValueError("No model specified")
+ValueError: No model specified
+2025-01-03 07:15:49,035 - INFO - Cleanup completed successfully
+2025-01-03 07:15:49,280 - INFO - Cleanup completed successfully
+2025-01-03 07:37:16,693 - INFO - Found 3 models
+2025-01-03 07:37:18,214 - INFO - Starting system...
+2025-01-03 07:37:31,611 - INFO - System started successfully with model: C:\Users\antho\Desktop\stuff\projects\freewill\models\DarkIdol-Llama-3_1.gguf
+2025-01-03 07:37:43,413 - INFO - Received submit request: {'prompt': 'hello'}
+2025-01-03 07:37:43,414 - ERROR - Error in submit: Object of type coroutine is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 239, in submit
+    return jsonify(result)
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\venv\lib\site-packages\flask\json\__init__.py", line 170, in jsonify
+    return current_app.json.response(*args, **kwargs)  # type: ignore[return-value]
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\venv\lib\site-packages\flask\json\provider.py", line 214, in response
+    f"{self.dumps(obj, **dump_args)}\n", mimetype=self.mimetype
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\venv\lib\site-packages\flask\json\provider.py", line 179, in dumps
+    return json.dumps(obj, **kwargs)
+  File "C:\Users\antho\AppData\Local\Programs\Python\Python39\Lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Users\antho\AppData\Local\Programs\Python\Python39\Lib\json\encoder.py", line 201, in encode
+    chunks = list(chunks)
+  File "C:\Users\antho\AppData\Local\Programs\Python\Python39\Lib\json\encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\venv\lib\site-packages\flask\json\provider.py", line 121, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type coroutine is not JSON serializable
+2025-01-03 07:38:44,529 - INFO - Cleanup completed successfully
+2025-01-03 07:40:44,260 - INFO - Cleanup completed successfully
+2025-01-03 07:41:01,310 - INFO - Cleanup completed successfully
+2025-01-03 07:41:21,643 - INFO - Cleanup completed successfully
+2025-01-03 07:41:37,662 - INFO - Cleanup completed successfully
+2025-01-03 07:41:37,925 - INFO - Cleanup completed successfully
+2025-01-03 07:44:47,452 - INFO - Found 3 models
+2025-01-03 07:44:55,525 - INFO - Starting system...
+2025-01-03 07:45:07,543 - INFO - System started successfully with model: C:\Users\antho\Desktop\stuff\projects\freewill\models\DarkIdol-Llama-3_1.gguf
+2025-01-03 07:45:15,848 - INFO - Received submit request: {'prompt': 'My name is Anthony'}
+2025-01-03 07:45:15,848 - ERROR - Error in submit: Object of type coroutine is not JSON serializable
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 253, in submit
+    return jsonify(result)
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\venv\lib\site-packages\flask\json\__init__.py", line 170, in jsonify
+    return current_app.json.response(*args, **kwargs)  # type: ignore[return-value]
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\venv\lib\site-packages\flask\json\provider.py", line 214, in response
+    f"{self.dumps(obj, **dump_args)}\n", mimetype=self.mimetype
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\venv\lib\site-packages\flask\json\provider.py", line 179, in dumps
+    return json.dumps(obj, **kwargs)
+  File "C:\Users\antho\AppData\Local\Programs\Python\Python39\Lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Users\antho\AppData\Local\Programs\Python\Python39\Lib\json\encoder.py", line 201, in encode
+    chunks = list(chunks)
+  File "C:\Users\antho\AppData\Local\Programs\Python\Python39\Lib\json\encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\venv\lib\site-packages\flask\json\provider.py", line 121, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type coroutine is not JSON serializable
+2025-01-03 07:46:28,560 - INFO - Cleanup completed successfully
+2025-01-03 07:46:28,940 - INFO - Cleanup completed successfully
+2025-01-03 07:47:10,380 - INFO - Found 3 models
+2025-01-03 07:47:12,198 - INFO - Starting system...
+2025-01-03 07:47:24,372 - INFO - System started successfully with model: C:\Users\antho\Desktop\stuff\projects\freewill\models\DarkIdol-Llama-3_1.gguf
+2025-01-03 07:47:28,597 - INFO - Processing prompt: hi
+2025-01-03 07:48:41,692 - ERROR - Error in submit: object dict can't be used in 'await' expression
+Traceback (most recent call last):
+  File "C:\Users\antho\Desktop\stuff\projects\freewill\interface.py", line 246, in submit
+    result = await response  # Add this line to await the coroutine
+TypeError: object dict can't be used in 'await' expression
+2025-01-03 07:51:04,997 - INFO - Cleanup completed successfully
+2025-01-03 07:51:05,396 - INFO - Cleanup completed successfully
+2025-01-03 07:54:08,101 - INFO - Found 3 models
+2025-01-03 07:54:13,542 - INFO - Starting system...
+2025-01-03 07:54:14,933 - INFO - System started successfully with model: C:\Users\antho\Desktop\stuff\projects\freewill\models\DarkIdol-Llama-3_1.gguf
+2025-01-03 07:57:17,060 - INFO - Cleanup completed successfully
+2025-01-03 07:57:24,655 - INFO - Cleanup completed successfully
+2025-01-03 07:57:29,228 - INFO - Found 3 models
+2025-01-03 07:57:30,756 - INFO - Starting system...
+2025-01-03 07:57:32,052 - INFO - System started successfully with model: C:\Users\antho\Desktop\stuff\projects\freewill\models\DarkIdol-Llama-3_1.gguf
+2025-01-03 07:57:55,790 - INFO - Cleanup completed successfully
+2025-01-03 07:58:20,502 - INFO - Cleanup completed successfully
+2025-01-03 07:58:39,087 - INFO - Cleanup completed successfully
+2025-01-03 07:58:39,319 - INFO - Cleanup completed successfully

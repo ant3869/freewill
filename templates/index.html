@@ -41,7 +41,7 @@
         /* Memory Panel */
         .memory-container {
             background: var(--secondary-bg);
-            border-right: 1px solid var(--border-color);
+            border: 1px solid #2196F3;        
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -49,7 +49,7 @@
         }
 
         .memory-header {
-            padding: 16px;
+            padding: 5px;
             background: var(--primary-bg);
             border-bottom: 1px solid var(--border-color);
             display: flex;
@@ -72,7 +72,8 @@
             transition: all var(--transition-speed);
         }
 
-        .memory-btn:hover {
+        .memory-btn:hover {       
+            background-blend-mode: screen;
             background: var(--accent-blue);
             border-color: var(--accent-blue);
         }
@@ -399,7 +400,7 @@
 
         /* Memory Cards */
         .memories-list {
-            padding: 16px;
+            padding: 6px;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -409,8 +410,8 @@
         .memory-card {
             background: var(--primary-bg);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 4px;
+            padding: 10px;
             cursor: pointer;
             transition: all var(--transition-speed);
         }
@@ -420,15 +421,70 @@
             border-color: var(--accent-blue);
         }
 
+        .delete-memory-btn {
+            position: absolute;
+            top: 3px;
+            right: 0.01px;
+            background: none;
+            cursor: pointer; 
+            opacity: 0.6;
+            font-size: 10px;
+            transition: opacity 0.2s;
+        }
+
+        .delete-memory-btn:hover {
+            top: 1px;
+            transform: translateY(-4px);
+            text-decoration-style: var(--accent-red);
+            text-emphasis-color: var(--accent-red);
+            fill: var(--accent-red);
+            opacity: 1.0;
+            font-size: 20px;
+            transition: opacity 0.2s;
+        }
+
         .memory-timestamp {
             font-size: 12px;
             color: var(--text-secondary);
-            margin-bottom: 4px;
         }
 
         .memory-content {
-            font-size: 13px;
-            line-height: 1.5;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        /* Memory card styles */
+        .memory-card {
+            position: relative;
+        }
+
+        .memory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        /* .delete-memory-btn {
+            font-size: smaller;
+            size: 2px;
+            background: none;
+            border: 1px solid red;
+            cursor: pointer;
+            padding: 2px;
+            opacity: 0.1;
+            transition: opacity 0.2s;
+        } */
+
+        .delete-memory-btn:hover {
+            transform: translateY(-4px);
+            color: var(--accent-red);
+            text-decoration-style: var(--accent-red);
+            text-emphasis-color: var(--accent-red);
+            fill: var(--accent-red);
+            opacity: 1.0;
+            font-size: 20px;
+            transition: opacity 0.2s;
         }
 
         /* Log Container */
@@ -477,6 +533,208 @@
         .log-INFO { color: var(--accent-green); }
         .log-WARNING { color: var(--accent-yellow); }
         .log-ERROR { color: var(--accent-red); }
+
+        /* Settings Panel */
+        .settings-panel {
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 300px;
+            background: #1e1e1e;
+            border-left: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .settings-panel.collapsed {
+            transform: translateX(290px);
+        }
+
+        .settings-header {
+            padding: 15px;
+            background: #252525;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .settings-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .settings-card {
+            background: #252525;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .settings-card h3 {
+            margin: 0 0 15px 0;
+            font-size: 1em;
+            color: #fff;
+        }
+
+        .setting-group {
+            margin-bottom: 15px;
+        }
+
+        .setting-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+
+        .setting-group textarea {
+            width: 100%;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        /* Slider styles */
+        .slider-with-value {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 2px;
+            flex: 1;
+            height: 4px;
+            background: #333;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .value-display {
+            min-width: 40px;
+            text-align: right;
+            color: #ccc;
+        }
+
+        /* Toggle switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Settings button */
+        .settings-btn {
+            width: 100%;
+            padding: 8px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .settings-btn:hover {
+            background: #45a049;
+        }
+
+        /* Adjust main content for settings panel */
+        .main-content {
+            margin-right: 300px;
+        }
+
+        /* Model selector styles */
+        .model-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 15px;
+        }
+
+        .folder-btn {
+            padding: 5px 10px;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .model-dropdown {
+            background: var(--secondary-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 5px;
+            min-width: 150px;
+        }
+
+        .loaded-model-badge {
+            background: var(--accent-blue);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -486,8 +744,8 @@
             <div class="memory-header">
                 <span>Memory Database</span>
                 <div class="memory-controls">
-                    <button id="addMemoryBtn" class="memory-btn" title="Add Memory">+</button>
-                    <button id="clearMemoriesBtn" class="memory-btn" title="Clear All">🗑️</button>
+                    <button id="addMemoryBtn" class="memory-btn" title="Add Memory">➕</button>
+                    <button id="clearMemoriesBtn" class="memory-btn" title="Clear All">❌</button>
                 </div>
             </div>
             <div class="memories-list" id="memoriesList"></div>
@@ -506,6 +764,13 @@
             <!-- Controls Section -->
             <div class="controls-section">
                 <div class="system-controls">
+                    <div class="model-selector">
+                        <button class="folder-btn" id="modelFolderBtn">📁</button>
+                        <select id="modelSelect" class="model-dropdown">
+                            <option value="">Select Model...</option>
+                        </select>
+                        <span id="loadedModel" class="loaded-model-badge"></span>
+                    </div>
                     <button id="startBtn">
                         <span class="spinner"></span>
                         <span>Start System</span>
@@ -527,630 +792,106 @@
             </div>
 
             <!-- Message Container -->
-            <div class="message-container" id="messageContainer"></div>
+            <div id="messageContainer" class="message-container"></div>
 
-            <!-- Stats Bar -->
+            <!-- Stats Container -->
             <div class="stats-container">
                 <div class="system-stats">
                     <div class="stat-item">
-                        <span>CPU</span>
+                        <span>CPU:</span>
                         <div class="progress-bar">
                             <div id="cpuBar" class="progress-fill"></div>
-                            <span id="cpuText">0%</span>
                         </div>
+                        <span id="cpuText">0%</span>
                     </div>
                     <div class="stat-item">
-                        <span>RAM</span>
+                        <span>RAM:</span>
                         <div class="progress-bar">
                             <div id="ramBar" class="progress-fill"></div>
-                            <span id="ramText">0%</span>
                         </div>
+                        <span id="ramText">0%</span>
                     </div>
-                    <div class="stat-item" id="gpuStats" style="display: none;">
-                        <span>GPU</span>
+                    <div class="stat-item gpu-stat">
+                        <span>GPU:</span>
                         <div class="progress-bar">
                             <div id="gpuBar" class="progress-fill"></div>
-                            <span id="gpuText">0%</span>
                         </div>
+                        <span id="gpuText">0%</span>
                     </div>
                 </div>
                 <div id="tokenCounter">Tokens: 0 | Total: 0</div>
             </div>
         </div>
-    </div>
 
-    <!-- Memory Modal -->
-    <div id="memoryModal" class="modal">
-        <div class="modal-content">
-            <h3>Add Memory</h3>
-            <textarea id="memoryInput" placeholder="Enter memory content..."></textarea>
-            <div class="modal-buttons">
-                <button id="saveMemoryBtn" class="memory-btn">Save</button>
-                <button id="cancelMemoryBtn" class="memory-btn">Cancel</button>
+        <!-- Settings Panel -->
+        <div id="settingsPanel" class="settings-panel">
+            <div class="settings-header">
+                <span>Settings</span>
+                <button id="toggleSettingsBtn" class="toggle-button">⚙️</button>
+            </div>
+            <div class="settings-content">
+                <div class="settings-card">
+                    <h3>System Prompts</h3>
+                    <div class="setting-group">
+                        <label>Main System Prompt</label>
+                        <textarea id="mainSystemPrompt" rows="4"></textarea>
+                    </div>
+                    <div class="setting-group">
+                        <label>Internal Processing Prompt</label>
+                        <textarea id="internalPrompt" rows="4"></textarea>
+                    </div>
+                    <div class="setting-group">
+                        <label>External Response Prompt</label>
+                        <textarea id="externalPrompt" rows="4"></textarea>
+                    </div>
+                    <button id="updatePromptsBtn">Update Prompts</button>
+                </div>
+                
+                <div class="settings-card">
+                    <h3>TTS Settings</h3>
+                    <div class="setting-group">
+                        <label>Internal TTS</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="ttsInternalEnabled">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-group">
+                        <label>External TTS</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="ttsExternalEnabled">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-group">
+                        <label>Speech Rate</label>
+                        <div class="slider-with-value">
+                            <input type="range" id="ttsRate" min="50" max="300" value="150">
+                            <span id="rateValue" class="value-display">150</span>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <label>Volume</label>
+                        <div class="slider-with-value">
+                            <input type="range" id="ttsVolume" min="0" max="1" step="0.1" value="1.0">
+                            <span id="volumeValue" class="value-display">1.0</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Log Container -->
-    <div id="logContainer" class="log-container">
-        <div class="log-header">
-            <span>System Logs</span>
-            <button id="clearLogBtn" class="memory-btn">Clear</button>
+        <!-- Log Container -->
+        <div id="logContainer" class="log-container">
+            <div class="log-header">
+                <span>System Logs</span>
+                <button id="clearLogBtn" class="memory-btn">Clear</button>
+            </div>
+            <div id="logContent" class="log-content"></div>
         </div>
-        <div id="logContent" class="log-content"></div>
     </div>
-    <script>
-        // Initialize variables
-        let isRunning = false;
-        let isProcessing = false;
-        let isLogVisible = false;
-        let totalTokens = 0;
-        let logUpdateInterval;
-        let abortController = null;
-        let memories = [];
 
-        // Wait for DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            // Get all the DOM elements
-            const startBtn = document.getElementById('startBtn');
-            const stopBtn = document.getElementById('stopBtn');
-            const submitBtn = document.getElementById('submitBtn');
-            const cancelBtn = document.getElementById('cancelBtn');
-            const promptInput = document.getElementById('promptInput');
-            const toggleLogBtn = document.getElementById('toggleLogBtn');
-            const clearLogBtn = document.getElementById('clearLogBtn');
-            const logContainer = document.getElementById('logContainer');
-            const logContent = document.getElementById('logContent');
-            const messageContainer = document.getElementById('messageContainer');
-            const spinner = document.getElementById('spinner');
-
-            // Verify all elements exist
-            if (!startBtn || !stopBtn || !submitBtn || !cancelBtn || !promptInput || 
-                !toggleLogBtn || !clearLogBtn || !logContainer || !logContent || 
-                !messageContainer || !spinner) {
-                console.error('Some DOM elements are missing!');
-                return;
-            }
-
-            // Add event listeners
-            startBtn.addEventListener('click', async () => {
-                try {
-                    updateStatus('loading');
-                    const response = await fetch('/start');
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        isRunning = true;
-                        updateStatus('loaded');
-                    } else {
-                        throw new Error(data.error || 'Failed to start system');
-                    }
-                } catch (error) {
-                    console.error('Start error:', error);
-                    updateStatus('offline');
-                }
-                updateControls();
-            });
-
-            stopBtn.addEventListener('click', async () => {
-                try {
-                    const response = await fetch('/stop');
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        isRunning = false;
-                        updateStatus('offline');
-                    } else {
-                        throw new Error(data.error || 'Failed to stop system');
-                    }
-                } catch (error) {
-                    console.error('Stop error:', error);
-                }
-                updateControls();
-            });
-
-            document.getElementById('promptInput').addEventListener('keypress', async (event) => {
-                // Check if Enter key was pressed and the input isn't empty
-                if (event.key === 'Enter' && event.target.value.trim() !== '') {
-                    event.preventDefault(); // Prevent default Enter key behavior
-                    
-                    if (isRunning && !isProcessing) {
-                        document.getElementById('submitBtn').click();
-                    }
-                }
-            });
-
-            submitBtn.addEventListener('click', async () => {
-                if (isProcessing) return;
-                
-                try {
-                    isProcessing = true;
-                    updateStatus('thinking');
-                    const prompt = promptInput.value;
-                    console.log("Submit clicked, prompt:", prompt);
-                    
-                    if (!isRunning) {
-                        console.error("System not running");
-                        return;
-                    }
-                    
-                    if (prompt && !isProcessing) {
-                        const startTime = Date.now();
-                        
-                        spinner.style.display = 'block';
-                        cancelBtn.style.display = 'inline-block';
-                        updateControls(true);
-
-                        try {
-                            const messageDiv = document.createElement('div');
-                            messageDiv.className = 'message thinking';
-                            messageDiv.innerHTML = `
-                                <span class="timestamp">[${new Date().toLocaleTimeString()}]</span>
-                                🤔 Processing: ${prompt}
-                            `;
-                            messageContainer.appendChild(messageDiv);
-
-                            console.log("Sending request to server...");
-                            const response = await fetch('/submit', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ prompt })
-                            });
-                            
-                            console.log("Response status:", response.status);
-                            const data = await response.json();
-                            console.log("Response data:", data);
-                            
-                            if (!response.ok) {
-                                throw new Error(data.error || 'Failed to process prompt');
-                            }
-                            
-                            promptInput.value = '';
-                            showProcessTime(startTime);
-                            
-                            if (data.tokens) {
-                                updateTokenCounter(data.tokens);
-                            }
-                            
-                        } catch (error) {
-                            console.error("Error in submit:", error);
-                            const messageDiv = document.createElement('div');
-                            messageDiv.className = 'message error';
-                            messageDiv.innerHTML = `
-                                <span class="timestamp">[${new Date().toLocaleTimeString()}]</span>
-                                ⚠️ Error: ${error.message}
-                            `;
-                            messageContainer.appendChild(messageDiv);
-                        } finally {
-                            isProcessing = false;
-                            spinner.style.display = 'none';
-                            cancelBtn.style.display = 'none';
-                            updateControls();
-                        }
-                    }
-                } catch (error) {
-                    console.error('Submit error:', error);
-                } finally {
-                    isProcessing = false;
-                    updateStatus('loaded');  // Reset to loaded when done
-                }
-            });
-
-            clearLogBtn.addEventListener('click', async () => {
-                console.log("Clear logs clicked");
-                try {
-                    const response = await fetch('/clear_logs', { 
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    console.log("Clear logs response:", data);
-                    
-                    if (response.ok) {
-                        logContent.innerHTML = '';
-                        console.log("Logs cleared successfully");
-                    } else {
-                        console.error("Failed to clear logs:", data.error);
-                    }
-                } catch (error) {
-                    console.error("Error clearing logs:", error);
-                }
-            });
-
-            toggleLogBtn.addEventListener('click', () => {
-                isLogVisible = !isLogVisible;
-                logContainer.classList.toggle('show');
-                toggleLogBtn.textContent = isLogVisible ? 'Hide Logs' : 'Show Logs';
-                
-                if (isLogVisible) {
-                    updateLogs();
-                    logUpdateInterval = setInterval(updateLogs, 1000);
-                } else {
-                    clearInterval(logUpdateInterval);
-                }
-            });
-
-            // Start message polling
-            setInterval(pollMessages, 1000);
-
-            // Start system stats update only after DOM is loaded
-            if (document.getElementById('cpuBar')) {  // Check if the elements exist
-                setInterval(updateSystemStats, 1000);
-            } else {
-                console.error('System stats elements not found in DOM');
-            }
-        });
-
-        // Memory management functions
-        function addMemory(content, type = 'manual') {
-            // Validate content before adding to memory
-            if (content.includes('name is') && memories.some(m => m.content.includes('name is'))) {
-                // Update existing name memory instead of adding new one
-                const nameMemory = memories.find(m => m.content.includes('name is'));
-                nameMemory.content = content;
-                nameMemory.timestamp = new Date().toISOString();
-            } else {
-                const memory = {
-                    id: Date.now(),
-                    content,
-                    timestamp: new Date().toISOString(),
-                    type,
-                    tags: extractTags(content)
-                };
-                memories.unshift(memory);
-            }
-            saveMemories();
-            renderMemories();
-        }
-
-        function extractTags(content) {
-            const tags = new Set();
-            // Extract hashtags
-            const hashtags = content.match(/#\w+/g) || [];
-            hashtags.forEach(tag => tags.add(tag.slice(1)));
-            // Add some automatic tags based on content analysis
-            if (content.toLowerCase().includes('remember')) tags.add('remember');
-            if (content.toLowerCase().includes('important')) tags.add('important');
-            return Array.from(tags);
-        }
-
-        function renderMemories() {
-            const memoriesList = document.getElementById('memoriesList');
-            memoriesList.innerHTML = '';
-            
-            memories.forEach(memory => {
-                const card = document.createElement('div');
-                card.className = 'memory-card';
-                card.innerHTML = `
-                    <div class="memory-timestamp">
-                        ${new Date(memory.timestamp).toLocaleString()}
-                    </div>
-                    <div class="memory-content">${memory.content}</div>
-                    <div class="memory-tags">
-                        ${memory.tags.map(tag => `
-                            <span class="memory-tag">${tag}</span>
-                        `).join('')}
-                    </div>
-                `;
-                
-                card.addEventListener('click', () => {
-                    // Add memory content to prompt input
-                    document.getElementById('promptInput').value = 
-                        `Recall this memory: ${memory.content}`;
-                });
-                
-                memoriesList.appendChild(card);
-            });
-        }
-
-        function saveMemories() {
-            localStorage.setItem('aiMemories', JSON.stringify(memories));
-        }
-
-        function loadMemories() {
-            const saved = localStorage.getItem('aiMemories');
-            memories = saved ? JSON.parse(saved) : [];
-            renderMemories();
-        }
-
-        // Initialize memory system
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMemories();
-            
-            // Add memory button handler
-            document.getElementById('addMemoryBtn').addEventListener('click', () => {
-                document.getElementById('memoryModal').style.display = 'block';
-            });
-            
-            // Save memory handler
-            document.getElementById('saveMemoryBtn').addEventListener('click', () => {
-                const content = document.getElementById('memoryInput').value;
-                if (content.trim()) {
-                    addMemory(content);
-                    document.getElementById('memoryInput').value = '';
-                    document.getElementById('memoryModal').style.display = 'none';
-                }
-            });
-            
-            // Cancel memory handler
-            document.getElementById('cancelMemoryBtn').addEventListener('click', () => {
-                document.getElementById('memoryModal').style.display = 'none';
-                document.getElementById('memoryInput').value = '';
-            });
-            
-            // Clear memories handler
-            document.getElementById('clearMemoriesBtn').addEventListener('click', () => {
-                if (confirm('Are you sure you want to clear all memories?')) {
-                    memories = [];
-                    saveMemories();
-                    renderMemories();
-                }
-            });
-        });
-
-        // Add this to your existing JavaScript
-        function updateSystemStats() {
-            fetch('/system_stats')
-                .then(response => response.json())
-                .then(stats => {
-                    // Update CPU
-                    const cpuBar = document.getElementById('cpuBar');
-                    const cpuText = document.getElementById('cpuText');
-                    cpuBar.style.width = `${stats.cpu}%`;
-                    cpuText.textContent = `${Math.round(stats.cpu)}%`;
-                    updateBarColor(cpuBar, stats.cpu);
-
-                    // Update RAM
-                    const ramBar = document.getElementById('ramBar');
-                    const ramText = document.getElementById('ramText');
-                    ramBar.style.width = `${stats.ram}%`;
-                    ramText.textContent = `${Math.round(stats.ram)}%`;
-                    updateBarColor(ramBar, stats.ram);
-
-                    // Update GPU if available
-                    if (stats.gpu) {
-                        const gpuStats = document.getElementById('gpuStats');
-                        const gpuBar = document.getElementById('gpuBar');
-                        const gpuText = document.getElementById('gpuText');
-                        
-                        gpuStats.style.display = 'flex';
-                        gpuBar.style.width = `${stats.gpu.load}%`;
-                        gpuText.textContent = `${Math.round(stats.gpu.load)}%`;
-                        updateBarColor(gpuBar, stats.gpu.load);
-                    }
-                })
-                .catch(error => console.error('Error fetching system stats:', error));
-        }
-
-        function updateBarColor(bar, value) {
-            bar.classList.remove('low', 'medium', 'high');
-            if (value < 60) bar.classList.add('low');
-            else if (value < 85) bar.classList.add('medium');
-            else bar.classList.add('high');
-        }
-
-        function updateControls(loading = false) {
-            // Get all control elements
-            const startBtn = document.getElementById('startBtn');
-            const stopBtn = document.getElementById('stopBtn');
-            const promptInput = document.getElementById('promptInput');
-            const submitBtn = document.getElementById('submitBtn');
-            const cancelBtn = document.getElementById('cancelBtn');
-            const loadingBar = document.getElementById('loadingBar');
-            const spinner = document.getElementById('spinner');
-            const statusIndicator = document.getElementById('statusIndicator');
-
-            if (loading) {
-                startBtn.disabled = true;
-                stopBtn.disabled = true;
-                promptInput.disabled = true;
-                submitBtn.disabled = true;
-                if (spinner) spinner.style.display = 'block';
-                if (cancelBtn) cancelBtn.style.display = 'inline-block';
-            } else {
-                startBtn.disabled = isRunning;
-                stopBtn.disabled = !isRunning;
-                promptInput.disabled = !isRunning || isProcessing;
-                submitBtn.disabled = !isRunning || isProcessing;
-                if (spinner) spinner.style.display = isProcessing ? 'block' : 'none';
-                if (cancelBtn) cancelBtn.style.display = isProcessing ? 'inline-block' : 'none';
-            }
-            
-            // Debug log
-            console.log('Control state updated:', {
-                isRunning,
-                isProcessing,
-                inputDisabled: promptInput.disabled,
-                submitDisabled: submitBtn.disabled
-            });
-        }
-
-        function simulateProgress(duration) {
-            const loadingBar = document.getElementById('loadingBar');
-            const progress = document.getElementById('loadingBarProgress');
-            loadingBar.style.display = 'block';
-            progress.style.width = '0%';
-
-            let startTime = Date.now();
-            
-            function update() {
-                const elapsed = Date.now() - startTime;
-                const percentage = Math.min((elapsed / duration) * 100, 95);
-                progress.style.width = percentage + '%';
-
-                if (percentage < 95) {
-                    requestAnimationFrame(update);
-                }
-            }
-
-            requestAnimationFrame(update);
-        }
-
-        function completeProgress() {
-            const progress = document.getElementById('loadingBarProgress');
-            progress.style.width = '100%';
-            setTimeout(() => {
-                document.getElementById('loadingBar').style.display = 'none';
-                progress.style.width = '0%';
-            }, 300);
-        }
-
-        function formatTime(milliseconds) {
-            const seconds = Math.floor(milliseconds / 1000);
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = seconds % 60;
-            
-            if (minutes > 0) {
-                return `Process ${minutes}m${remainingSeconds}s`;
-            } else {
-                return `Process ${remainingSeconds}s`;
-            }
-        }
-
-        function showProcessTime(startTime) {
-            const endTime = Date.now();
-            const processTime = endTime - startTime;
-            const processTimeElement = document.getElementById('processTime');
-            processTimeElement.textContent = formatTime(processTime);
-            processTimeElement.style.display = 'block';
-            
-            setTimeout(() => {
-                processTimeElement.style.display = 'none';
-            }, 5000);
-        }
-
-        function updateTokenCounter(newTokens) {
-            const counter = document.getElementById('tokenCounter');
-            const currentTotal = parseInt(counter.getAttribute('data-total') || '0');
-            const newTotal = currentTotal + newTokens;
-            counter.setAttribute('data-total', newTotal.toString());
-            counter.textContent = `Tokens: ${newTokens} | Total: ${newTotal}`;
-        }
-
-        function scrollLogsToBottom() {
-            const logContent = document.getElementById('logContent');
-            logContent.scrollTop = logContent.scrollHeight;
-        }
-
-        function updateLogs() {
-            if (isLogVisible) {
-                fetch('/get_logs')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.logs) {
-                            const logContent = document.getElementById('logContent');
-                            logContent.innerHTML = '';
-                            
-                            data.logs.forEach(log => {
-                                const entry = document.createElement('div');
-                                entry.className = 'log-entry';
-                                
-                                if (log.includes('DEBUG')) entry.classList.add('log-DEBUG');
-                                else if (log.includes('INFO')) entry.classList.add('log-INFO');
-                                else if (log.includes('WARNING')) entry.classList.add('log-WARNING');
-                                else if (log.includes('ERROR')) entry.classList.add('log-ERROR');
-                                
-                                entry.textContent = log;
-                                logContent.appendChild(entry);
-                            });
-                            
-                            scrollLogsToBottom();
-                        }
-                    })
-                    .catch(error => console.error('Error fetching logs:', error));
-            }
-        }
-
-        // Poll for new messages
-        async function pollMessages() {
-            if (isRunning) {
-                try {
-                    const response = await fetch('/get_messages');
-                    const messages = await response.json();
-                    
-                    if (messages && messages.length > 0) {
-                        let completedResponse = false;
-                        
-                        messages.forEach(msg => {
-                            const messageDiv = document.createElement('div');
-                            messageDiv.className = `message ${msg.type}`;
-                            messageDiv.innerHTML = `
-                                <span class="timestamp">[${msg.timestamp}]</span>
-                                ${msg.type === 'thinking' ? '🤔' : msg.type === 'internal' ? '💭' : '🗣️'}
-                                ${msg.content}
-                            `;
-                            document.getElementById('messageContainer').appendChild(messageDiv);
-                            
-                            // Check if this is an external message (final response)
-                            if (msg.type === 'external') {
-                                completedResponse = true;
-                                
-                                // Check for memory-related content
-                                if (msg.content.toLowerCase().includes('remember') || 
-                                    msg.content.toLowerCase().includes('memory')) {
-                                    addMemory(msg.content, 'ai');
-                                }
-                            }
-                        });
-                        
-                        // Reset processing state if we got the final response
-                        if (completedResponse) {
-                            console.log('Response completed, resetting processing state');
-                            isProcessing = false;
-                            document.getElementById('spinner').style.display = 'none';
-                            document.getElementById('cancelBtn').style.display = 'none';
-                            document.getElementById('promptInput').disabled = false;
-                            document.getElementById('submitBtn').disabled = false;
-                            updateControls();
-                        }
-                        
-                        // Scroll to bottom
-                        const container = document.getElementById('messageContainer');
-                        container.scrollTop = container.scrollHeight;
-                    }
-                } catch (error) {
-                    console.error('Error polling messages:', error);
-                    // Reset processing state on error
-                    isProcessing = false;
-                    updateControls();
-                }
-            }
-        }
-
-        function updateStatus(status) {
-            const badge = document.getElementById('statusIndicator');
-            if (!badge) return;
-
-            // Remove all status classes
-            badge.classList.remove('offline', 'loaded', 'loading', 'thinking');
-            
-            // Add appropriate class and text
-            switch(status) {
-                case 'loaded':
-                    badge.classList.add('loaded');
-                    badge.textContent = 'Loaded';
-                    break;
-                case 'offline':
-                    badge.classList.add('offline');
-                    badge.textContent = 'Offline';
-                    break;
-                case 'loading':
-                    badge.classList.add('loading');
-                    badge.textContent = 'Loading';
-                    break;
-                case 'thinking':
-                    badge.classList.add('thinking');
-                    badge.textContent = 'Thinking';
-                    break;
-            }
-            
-            console.log('Status updated to:', status); // Debug log
-        }
-    </script>
+    <!-- Load the improved frontend.js -->
+    <script src="static/frontend.js"></script>
 </body>
 </html>

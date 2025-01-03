@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 from llm.autonomous_llm import AutonomousLLM
-from llm.tts_module import TextToSpeech
+from llm.tts_module import TTSModule
 import torch
 import psutil
 import GPUtil
@@ -15,11 +15,15 @@ import pyttsx3
 import threading
 import json
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+import asyncio
+from functools import partial
+import atexit
 
 app = Flask(__name__)
 
 # Global variables
-MODEL_PATH = "F:/lm-studio/models/QuantFactory/DarkIdol-Llama-3.1-8B-Instruct-1.2-Uncensored-GGUF/DarkIdol-Llama-3.1-8B-Instruct-1.2-Uncensored.Q8_0.gguf"
+MODEL_PATH = "models/DarkIdol-Llama-3_1.gguf"
 model = None
 tts = None
 is_running = False
@@ -47,6 +51,16 @@ system_stats = {
     'cpu': 0,
     'ram': 0,
     'gpu': None
+}
+
+# Create thread pool for async operations
+executor = ThreadPoolExecutor(max_workers=3)
+
+# Add to your global variables
+system_prompts = {
+    'main': '',
+    'internal': '',
+    'external': ''
 }
 
 def update_system_stats():
@@ -103,55 +117,27 @@ def start_system():
         if not is_running:
             logger.info("Starting system...")
             model = AutonomousLLM(MODEL_PATH)
-            tts = TextToSpeech()
+            tts = TTSModule()
             is_running = True
-            
-            # Get GPU info if available
-            gpu_info = {
-                "device": model.device,
-                "memory_allocated": f"{torch.cuda.memory_allocated()/1024**3:.2f}GB" if torch.cuda.is_available() else "N/A",
-                "memory_reserved": f"{torch.cuda.memory_reserved()/1024**3:.2f}GB" if torch.cuda.is_available() else "N/A"
-            }
-            
-            logger.info(f"System started successfully on {gpu_info['device']}")
-            return jsonify({
-                "status": "started",
-                "gpu_info": gpu_info
-            })
+            return jsonify({"status": "started"})
         return jsonify({"status": "already running"})
     except Exception as e:
         logger.error(f"Error starting system: {e}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/stop', methods=['POST'])
-def stop_system():
-    global model, tts, is_running
+async def stop_system():
     try:
-        if is_running:
-            logger.info("Stopping system...")
-            # Clear the message queue
-            while not message_queue.empty():
-                message_queue.get_nowait()
-                
-            is_running = False
-            if model:
-                model.close_model()
-                model = None
-            if tts:
-                tts = None
-                
-            # Add shutdown message to queue
-            message_queue.put({
-                "type": "system",
-                "content": "System stopped",
-                "timestamp": time.strftime("%H:%M:%S")
-            })
-            
-            logger.info("System stopped successfully")
-            return jsonify({"status": "stopped"})
-        return jsonify({"status": "already stopped"})
+        logger.info("Received stop request")
+        
+        loop = asyncio.get_event_loop()
+        await loop.run_in_executor(executor, model.close_model)
+        
+        logger.info("System stopped successfully")
+        return jsonify({"status": "stopped"})
+        
     except Exception as e:
-        logger.error(f"Error stopping system: {e}")
+        logger.error(f"Error stopping system: {str(e)}", exc_info=True)
         return jsonify({"error": str(e)}), 500
 
 def get_relevant_memories(prompt, memories, max_memories=5):
@@ -177,56 +163,23 @@ def get_relevant_memories(prompt, memories, max_memories=5):
     return relevant_memories[:max_memories]
 
 @app.route('/submit', methods=['POST'])
-def submit_prompt():
-    global model, tts, is_running
-    
-    if not is_running:
-        return jsonify({"error": "System not running"}), 400
-    
+async def submit():
     try:
         data = request.get_json()
-        prompt = data.get('prompt', '')
+        logger.info(f"Received submit request: {data}")
         
-        # Get relevant memories
-        relevant_memories = get_relevant_memories(prompt, memories)
+        # Handle prompt processing in separate thread
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(
+            executor, 
+            partial(process_prompt, data.get('prompt', ''))
+        )
         
-        # Build context with memories
-        context = ""
-        if relevant_memories:
-            context += "Here are some relevant memories you should consider:\n"
-            for memory in relevant_memories:
-                context += f"- {memory['content']} (from {memory['timestamp']})\n"
-        
-        context += "\nBased on these memories and the current prompt, please respond appropriately.\n"
-        
-        # Combine context and prompt
-        full_prompt = f"{context}\nCurrent prompt: {prompt}"
-        
-        # Process with model
-        response = model.process_prompt(full_prompt)
-        
-        # Check for memory-related keywords in prompt or response
-        memory_keywords = ['remember', 'recall', 'memory', 'forget', 'store']
-        should_store = any(keyword in prompt.lower() for keyword in memory_keywords) or \
-                      any(keyword in response.lower() for keyword in memory_keywords)
-        
-        if should_store:
-            new_memory = {
-                'content': f"Prompt: {prompt}\nResponse: {response}",
-                'timestamp': datetime.now().isoformat(),
-                'type': 'conversation'
-            }
-            memories.append(new_memory)
-            save_memories()  # Make sure this function exists to persist memories
-        
-        return jsonify({
-            "response": response,
-            "memories_used": len(relevant_memories),
-            "tokens": model.get_token_count()  # Make sure this method exists
-        })
+        logger.info(f"Processed prompt with result: {result}")
+        return jsonify(result)
         
     except Exception as e:
-        logger.error(f"Error processing prompt: {str(e)}", exc_info=True)
+        logger.error(f"Error in submit: {str(e)}", exc_info=True)
         return jsonify({"error": str(e)}), 500
 
 def save_memories():
@@ -342,6 +295,124 @@ class TTSHandler:
                 except:
                     pass
                 self.is_speaking = False
+
+@app.route('/select_model_folder', methods=['GET'])
+def select_model_folder():
+    try:
+        # Default model path
+        default_model = 'DarkIdol-Llama-3_1.gguf'
+        models = [default_model]  # Start with default model
+        
+        # Add any other models found in the directory
+        model_dir = os.path.join(os.path.dirname(__file__), 'models')
+        if os.path.exists(model_dir):
+            models.extend([f for f in os.listdir(model_dir) 
+                         if f.endswith('.gguf') and f != default_model])
+        
+        return jsonify({"models": models})
+    except Exception as e:
+        logger.error(f"Error listing models: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/update_settings', methods=['POST'])
+async def update_settings():
+    try:
+        settings = request.get_json()
+        logger.info(f"Updating settings: {settings}")
+        
+        # Update model settings in separate thread
+        loop = asyncio.get_event_loop()
+        await loop.run_in_executor(
+            executor,
+            partial(model.update_settings, settings)
+        )
+        
+        logger.info("Settings updated successfully")
+        return jsonify({"status": "success"})
+        
+    except Exception as e:
+        logger.error(f"Error updating settings: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+# Add cleanup on shutdown
+@atexit.register
+def cleanup():
+    executor.shutdown(wait=False)
+
+def process_prompt(prompt):
+    """Process the prompt using the loaded model"""
+    try:
+        if not model:
+            raise Exception("Model not loaded")
+        
+        logger.info(f"Processing prompt: {prompt}")
+        # Remove system_prompt parameter
+        response = model.generate_response(prompt)
+        return {"response": response}
+        
+    except Exception as e:
+        logger.error(f"Error processing prompt: {e}")
+        raise
+
+@app.route('/update_prompts', methods=['POST'])
+async def update_prompts():
+    global system_prompts
+    try:
+        prompts = request.get_json()
+        logger.info(f"Updating system prompts: {prompts}")
+        system_prompts.update(prompts)
+        
+        if model:  # If model is loaded, update it
+            await asyncio.get_event_loop().run_in_executor(
+                executor,
+                partial(model.update_prompts, **system_prompts)
+            )
+        
+        return jsonify({"status": "success"})
+    except Exception as e:
+        logger.error(f"Error updating prompts: {e}")
+        return jsonify({"error": str(e)}), 500
+
+class TextToSpeech:
+    def __init__(self):
+        self.engine = pyttsx3.init()
+        self.is_speaking = False
+        self._lock = threading.Lock()
+        # Default settings
+        self.internal_tts_enabled = True
+        self.external_tts_enabled = True
+        self.rate = 150  # Default speech rate
+        self.volume = 1.0
+        self.voice = None
+        self.apply_settings()
+
+    def apply_settings(self):
+        try:
+            self.engine.setProperty('rate', self.rate)
+            self.engine.setProperty('volume', self.volume)
+            if self.voice:
+                self.engine.setProperty('voice', self.voice)
+        except Exception as e:
+            logger.error(f"Error applying TTS settings: {e}")
+
+    def update_settings(self, settings):
+        try:
+            if 'rate' in settings:
+                self.rate = settings['rate']
+            if 'volume' in settings:
+                self.volume = settings['volume']
+            if 'voice' in settings:
+                self.voice = settings['voice']
+            if 'internal_enabled' in settings:
+                self.internal_tts_enabled = settings['internal_enabled']
+            if 'external_enabled' in settings:
+                self.external_tts_enabled = settings['external_enabled']
+            
+            self.apply_settings()
+            logger.info("TTS settings updated successfully")
+        except Exception as e:
+            logger.error(f"Error updating TTS settings: {e}")
+            raise
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

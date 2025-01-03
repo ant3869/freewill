@@ -1,61 +1,48 @@
 # File: main.py
 # Purpose: Main entry point for the autonomous LLM application.
 
-import queue
-import threading
-import datetime
+import os
 from llm.autonomous_llm import AutonomousLLM
-from llm.tts_module import TextToSpeech
-from llm.wake_word import WakeWordDetector
+from llm.tts_module import TTSModule
+from interface import WebInterface, ServerConfig
 
+def get_default_model_path():
+    """Get the default model path from environment or fallback to common locations"""
+    # Check environment variable first
+    model_path = os.getenv('FREEWILL_MODEL_PATH')
+    if model_path and os.path.exists(model_path):
+        return model_path
+        
+    # Common locations to check
+    common_paths = [
+        'models/DarkIdol-Llama-3_1.gguf',
+        os.path.expanduser('~/models/DarkIdol-Llama-3_1.gguf'),
+        'models/DarkIdol-Llama-3_1.gguf'
+    ]
+    
+    for path in common_paths:
+        if os.path.exists(path):
+            return path
+            
+    return None
 
 def main():
-    # Initialize components
-    llm = AutonomousLLM()
-    tts = TextToSpeech()
-    command_queue = queue.Queue()
+    # Get model path
+    model_path = get_default_model_path()
+    if not model_path:
+        model_path = 'models/DarkIdol-Llama-3_1.gguf'  # Default to local path even if it doesn't exist yet
 
-    # Start the wake-word detector in a separate thread
-    wake_detector = WakeWordDetector(wake_word="wake up")
-    wake_thread = threading.Thread(
-        target=wake_detector.listen_for_wake_word, args=(command_queue,)
+    # Configure the server
+    config = ServerConfig(
+        model_path='models/DarkIdol-Llama-3_1.gguf',
+        models_directory="models",
+        max_workers=3,
+        log_path='logs'
     )
-    wake_thread.daemon = True
-    wake_thread.start()
-
-    print("[System] Waiting for wake word to activate...")
-
-    try:
-        while True:
-            if not command_queue.empty():
-                command = command_queue.get()
-                if command == "wake":
-                    print("[System] Wake word triggered! Generating response...")
-
-                    # Generate thoughts
-                    try:
-                        thoughts = llm.generate_inner_thoughts()
-                        print("Generated Thought:", thoughts)
-
-                        # Speak the response if appropriate
-                        if "speak now" in thoughts.lower():
-                            print("[System] Speaking generated thought...")
-                            tts.speak(thoughts)
-
-                        # Retrieve and display recent thoughts
-                        recent_thoughts = llm.recall_recent_thoughts()
-                        print("\n[Memory Recall - Recent Thoughts]")
-                        for idx, thought in enumerate(recent_thoughts, 1):
-                            print(f"{idx}: {thought}")
-
-                    except Exception as e:
-                        print(f"[Error] Failed to process thought: {e}")
-
-    except KeyboardInterrupt:
-        print("\n[System] Shutting down gracefully...")
-    except Exception as e:
-        print(f"[System Error] Unexpected error: {e}")
-
+    
+    # Create and run the interface
+    interface = WebInterface(config)
+    interface.run(debug=True)
 
 if __name__ == "__main__":
     main()

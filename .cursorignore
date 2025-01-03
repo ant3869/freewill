@@ -1,0 +1,70 @@
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+# Python virtual environments
+venv/
+env/
+.env/
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*.so
+
+# Logs and temporary files
+logs/
+*.log
+temp/
+tmp/
+
+# Data files
+data/
+datasets/
+training_data/
+*.csv
+*.json
+*.jsonl
+*.txt
+*.wav
+*.mp3
+*.pkl
+*.h5
+*.bin
+
+# Model files and checkpoints
+models/
+checkpoints/
+weights/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.gguf
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Build and distribution
+dist/
+build/
+*.egg-info/
+
+# Version control
+.git/
+.gitignore
+.gitattributes
+
+# Configuration files
+config/
+*.cfg
+*.conf
+*.ini
+*.yaml
+*.yml
+
+# Documentation builds
+docs/_build/
+site/
