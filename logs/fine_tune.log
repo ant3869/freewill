@@ -1,0 +1,9 @@
+2024-12-31 19:26:15.247840 - Fine-tuning started.
+2024-12-31 19:26:16.320866 - Error during fine-tuning or evaluation: Requested tokens (763) exceed context window of 512
+2024-12-31 19:26:16.403978 - Critical error: Error during fine-tuning or evaluation: Requested tokens (763) exceed context window of 512
+2024-12-31 19:49:59.743528 - Fine-tuning process started.
+2024-12-31 19:49:59.743528 - Initializing Llama model for fine-tuning...
+2024-12-31 19:50:00.861839 - Loading tokenized dataset from './training/dataset/tokenized_dataset'...
+2024-12-31 19:50:01.205470 - Error during fine-tuning or evaluation: Unable to find 'C:/Users/antho/Desktop/stuff/projects/freewill\./training/dataset/tokenized_dataset'
+2024-12-31 19:50:01.282770 - Llama model resources released.
+2024-12-31 19:50:01.283767 - Critical error: Unable to find 'C:/Users/antho/Desktop/stuff/projects/freewill\./training/dataset/tokenized_dataset'

@@ -1,0 +1,18 @@
+transformers>=4.33.0
+datasets==2.14.5
+TTS>=0.21.0
+SpeechRecognition==3.8.1
+webrtcvad==2.0.10
+scipy>=1.11.0
+torch>=2.0.0 --index-url https://download.pytorch.org/whl/cu118
+torchvision>=0.15.0 --index-url https://download.pytorch.org/whl/cu118
+torchaudio>=2.0.0 --index-url https://download.pytorch.org/whl/cu118
+llama-cpp-python
+html2text
+markdown
+PyAudio
+flask>=2.0.0
+pyttsx3
+pywin32
+psutil
+gputil

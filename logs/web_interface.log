@@ -1,0 +1,33 @@
+2025-01-02 18:25:38,607 - INFO - === Logs cleared ===
+2025-01-02 18:25:44,380 - INFO - Starting system...
+2025-01-02 18:26:19,445 - INFO - System started successfully on cpu
+2025-01-02 18:26:53,695 - INFO - Processing prompt: What is my name?
+2025-01-02 18:30:14,796 - INFO - Successfully generated response
+2025-01-02 18:30:14,797 - INFO - Attempting to speak response
+2025-01-02 18:42:29,093 - INFO - Starting system...
+2025-01-02 18:42:31,269 - INFO - System started successfully on cpu
+2025-01-02 18:43:05,695 - INFO - Processing prompt: What is my name?
+2025-01-02 18:43:17,510 - INFO - Successfully generated response
+2025-01-02 18:43:17,510 - INFO - Attempting to speak response
+2025-01-02 18:43:30,996 - INFO - Processing prompt: My name is Anthony
+2025-01-02 18:43:38,242 - INFO - Successfully generated response
+2025-01-02 18:43:38,242 - INFO - Attempting to speak response
+2025-01-02 18:43:38,242 - ERROR - TTS failed: run loop already started
+2025-01-02 18:44:03,872 - INFO - Processing prompt: Remember my name, keep in your memory that my name is Anthony
+2025-01-02 18:44:25,229 - INFO - Successfully generated response
+2025-01-02 18:44:25,229 - INFO - Attempting to speak response
+2025-01-02 18:44:25,230 - ERROR - TTS failed: run loop already started
+2025-01-02 18:45:16,493 - INFO - Processing prompt: What is your name, what model are you, and what limitations on what you can talk about do you have?
+2025-01-02 18:45:57,419 - INFO - Successfully generated response
+2025-01-02 18:45:57,419 - INFO - Attempting to speak response
+2025-01-02 18:45:57,419 - ERROR - TTS failed: run loop already started
+2025-01-02 18:46:35,677 - INFO - Processing prompt: what version of the model are you?
+2025-01-02 18:48:21,176 - INFO - Successfully generated response
+2025-01-02 18:48:21,177 - INFO - Attempting to speak response
+2025-01-02 18:48:21,177 - ERROR - TTS failed: run loop already started
+2025-01-02 21:17:57,928 - INFO - Processing prompt: What is my name?
+2025-01-02 21:18:15,924 - INFO - Successfully generated response
+2025-01-02 21:18:15,924 - INFO - Attempting to speak response
+2025-01-02 21:18:15,924 - ERROR - TTS failed: run loop already started
+2025-01-02 21:18:33,666 - INFO - Stopping system...
+2025-01-02 21:18:34,818 - INFO - System stopped successfully

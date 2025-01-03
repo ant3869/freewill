@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI System Interface</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #1e1e1e;
+            --secondary-bg: #2d2d2d;
+            --border-color: #333;
+            --text-primary: #fff;
+            --text-secondary: #999;
+            --accent-green: #4CAF50;
+            --accent-red: #f44336;
+            --accent-blue: #2196F3;
+            --accent-yellow: #FFC107;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow: hidden;
+        }
+
+        /* Layout Structure */
+        .app-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Memory Panel */
+        .memory-container {
+            background: var(--secondary-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: relative;
+        }
+
+        .memory-header {
+            padding: 16px;
+            background: var(--primary-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .memory-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .memory-btn {
+            background: var(--secondary-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+
+        .memory-btn:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Top Controls */
+        .controls-section {
+            padding: 16px;
+            background: var(--primary-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .system-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 0 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Enhanced Input Group */
+        .input-group {
+            display: flex;
+            gap: 8px;
+            position: relative;
+        }
+
+        .input-group input {
+            flex: 1;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all var(--transition-speed);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Enhanced Buttons */
+        button {
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all var(--transition-speed);
+            display: flex;
+            min-width: 80px;
+        }
+
+        /* button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all var(--transition-speed);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        } */
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #startBtn {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        #stopBtn {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        #submitBtn {
+            background: var(--accent-blue);
+            color: white;
+            min-width: 100px;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .status-badge.offline {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .status-badge.loaded {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .status-badge.loading {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .status-badge.thinking {
+            background-color: #17a2b8;
+            color: white;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .status-badge::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .status-badge.online {
+            background: var(--accent-green);
+        }
+
+        /* Message Container */
+        .message-container {
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            background: rgba(30, 30, 30, 0.5);
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 4px;
+            background: rgba(45, 45, 45, 0.5);
+            width: 100%;
+        }
+
+        .message.thinking { align-self: flex-start; }
+        .message.internal { align-self: center; }
+        .message.external { align-self: flex-end; }
+
+        .timestamp {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* Stats Container */
+        .stats-container {
+            padding: 12px 20px;
+            background: var(--primary-bg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .system-stats {
+            display: flex;
+            gap: 24px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-item span {
+            font-size: 13px;
+            color: var(--text-secondary);
+            min-width: 40px;
+        }
+
+        .progress-bar {
+            width: 120px;
+            height: 6px;
+            background: var(--secondary-bg);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-blue);
+            transition: width var(--transition-speed) ease;
+        }
+
+        .progress-fill.low { background: var(--accent-green); }
+        .progress-fill.medium { background: var(--accent-yellow); }
+        .progress-fill.high { background: var(--accent-red); }
+
+        /* Token Counter */
+        #tokenCounter {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: var(--secondary-bg);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+
+        /* Process Time Display */
+        .process-time {
+            padding: 8px 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: right;
+            display: none;
+        }
+
+        /* Loading Bar */
+        .loading-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--secondary-bg);
+            display: none;
+            overflow: hidden;
+        }
+
+        .loading-bar-progress {
+            width: 0%;
+            height: 100%;
+            background: var(--accent-blue);
+            transition: width var(--transition-speed) ease;
+        }
+
+        /* Cancel Button */
+        .cancel-button {
+            background: var(--accent-red);
+            color: white;
+            display: none;
+        }
+
+        .cancel-button.show {
+            display: inline-flex;
+        }
+
+        /* GPU Badge */
+        .gpu-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: var(--secondary-bg);
+            color: var(--text-secondary);
+            font-size: 12px;
+            display: none;
+        }
+
+        .gpu-badge.show {
+            display: inline-block;
+        }
+
+        /* Loading Indicators */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Memory Cards */
+        .memories-list {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+        .memory-card {
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+
+        .memory-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .memory-timestamp {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .memory-content {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Log Container */
+        .log-container {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 50%;
+            height: 300px;
+            background: var(--primary-bg);
+            border-top: 2px solid var(--border-color);
+            border-left: 2px solid var(--border-color);
+            display: none;
+            z-index: 1000;
+        }
+
+        .log-container.show {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .log-header {
+            padding: 8px 16px;
+            background: var(--secondary-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .log-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .log-entry {
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+
+        .log-DEBUG { color: var(--text-secondary); }
+        .log-INFO { color: var(--accent-green); }
+        .log-WARNING { color: var(--accent-yellow); }
+        .log-ERROR { color: var(--accent-red); }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Memory Panel -->
+        <div class="memory-container">
+            <div class="memory-header">
+                <span>Memory Database</span>
+                <div class="memory-controls">
+                    <button id="addMemoryBtn" class="memory-btn" title="Add Memory">+</button>
+                    <button id="clearMemoriesBtn" class="memory-btn" title="Clear All">🗑️</button>
+                </div>
+            </div>
+            <div class="memories-list" id="memoriesList"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Loading Bar -->
+            <div id="loadingBar" class="loading-bar">
+                <div id="loadingBarProgress" class="loading-bar-progress"></div>
+            </div>
+
+            <!-- Process Time Display -->
+            <div id="processTime" class="process-time"></div>
+
+            <!-- Controls Section -->
+            <div class="controls-section">
+                <div class="system-controls">
+                    <button id="startBtn">
+                        <span class="spinner"></span>
+                        <span>Start System</span>
+                    </button>
+                    <button id="stopBtn" disabled>Stop System</button>
+                    <span id="statusIndicator" class="status-badge">Offline</span>
+                    <span id="gpuStatus" class="gpu-badge">GPU: Not Detected</span>
+                    <button id="toggleLogBtn" class="memory-btn">Show Logs</button>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="promptInput" placeholder="Enter your prompt..." disabled>
+                    <button id="submitBtn" disabled>
+                        <span id="spinner" class="spinner"></span>
+                        <span>Submit</span>
+                    </button>
+                    <button id="cancelBtn" class="cancel-button">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Message Container -->
+            <div class="message-container" id="messageContainer"></div>
+
+            <!-- Stats Bar -->
+            <div class="stats-container">
+                <div class="system-stats">
+                    <div class="stat-item">
+                        <span>CPU</span>
+                        <div class="progress-bar">
+                            <div id="cpuBar" class="progress-fill"></div>
+                            <span id="cpuText">0%</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>RAM</span>
+                        <div class="progress-bar">
+                            <div id="ramBar" class="progress-fill"></div>
+                            <span id="ramText">0%</span>
+                        </div>
+                    </div>
+                    <div class="stat-item" id="gpuStats" style="display: none;">
+                        <span>GPU</span>
+                        <div class="progress-bar">
+                            <div id="gpuBar" class="progress-fill"></div>
+                            <span id="gpuText">0%</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="tokenCounter">Tokens: 0 | Total: 0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Modal -->
+    <div id="memoryModal" class="modal">
+        <div class="modal-content">
+            <h3>Add Memory</h3>
+            <textarea id="memoryInput" placeholder="Enter memory content..."></textarea>
+            <div class="modal-buttons">
+                <button id="saveMemoryBtn" class="memory-btn">Save</button>
+                <button id="cancelMemoryBtn" class="memory-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Log Container -->
+    <div id="logContainer" class="log-container">
+        <div class="log-header">
+            <span>System Logs</span>
+            <button id="clearLogBtn" class="memory-btn">Clear</button>
+        </div>
+        <div id="logContent" class="log-content"></div>
+    </div>
+    <script>
+        // Initialize variables
+        let isRunning = false;
+        let isProcessing = false;
+        let isLogVisible = false;
+        let totalTokens = 0;
+        let logUpdateInterval;
+        let abortController = null;
+        let memories = [];
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get all the DOM elements
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const promptInput = document.getElementById('promptInput');
+            const toggleLogBtn = document.getElementById('toggleLogBtn');
+            const clearLogBtn = document.getElementById('clearLogBtn');
+            const logContainer = document.getElementById('logContainer');
+            const logContent = document.getElementById('logContent');
+            const messageContainer = document.getElementById('messageContainer');
+            const spinner = document.getElementById('spinner');
+
+            // Verify all elements exist
+            if (!startBtn || !stopBtn || !submitBtn || !cancelBtn || !promptInput || 
+                !toggleLogBtn || !clearLogBtn || !logContainer || !logContent || 
+                !messageContainer || !spinner) {
+                console.error('Some DOM elements are missing!');
+                return;
+            }
+
+            // Add event listeners
+            startBtn.addEventListener('click', async () => {
+                try {
+                    updateStatus('loading');
+                    const response = await fetch('/start');
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        isRunning = true;
+                        updateStatus('loaded');
+                    } else {
+                        throw new Error(data.error || 'Failed to start system');
+                    }
+                } catch (error) {
+                    console.error('Start error:', error);
+                    updateStatus('offline');
+                }
+                updateControls();
+            });
+
+            stopBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/stop');
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        isRunning = false;
+                        updateStatus('offline');
+                    } else {
+                        throw new Error(data.error || 'Failed to stop system');
+                    }
+                } catch (error) {
+                    console.error('Stop error:', error);
+                }
+                updateControls();
+            });
+
+            document.getElementById('promptInput').addEventListener('keypress', async (event) => {
+                // Check if Enter key was pressed and the input isn't empty
+                if (event.key === 'Enter' && event.target.value.trim() !== '') {
+                    event.preventDefault(); // Prevent default Enter key behavior
+                    
+                    if (isRunning && !isProcessing) {
+                        document.getElementById('submitBtn').click();
+                    }
+                }
+            });
+
+            submitBtn.addEventListener('click', async () => {
+                if (isProcessing) return;
+                
+                try {
+                    isProcessing = true;
+                    updateStatus('thinking');
+                    const prompt = promptInput.value;
+                    console.log("Submit clicked, prompt:", prompt);
+                    
+                    if (!isRunning) {
+                        console.error("System not running");
+                        return;
+                    }
+                    
+                    if (prompt && !isProcessing) {
+                        const startTime = Date.now();
+                        
+                        spinner.style.display = 'block';
+                        cancelBtn.style.display = 'inline-block';
+                        updateControls(true);
+
+                        try {
+                            const messageDiv = document.createElement('div');
+                            messageDiv.className = 'message thinking';
+                            messageDiv.innerHTML = `
+                                <span class="timestamp">[${new Date().toLocaleTimeString()}]</span>
+                                🤔 Processing: ${prompt}
+                            `;
+                            messageContainer.appendChild(messageDiv);
+
+                            console.log("Sending request to server...");
+                            const response = await fetch('/submit', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ prompt })
+                            });
+                            
+                            console.log("Response status:", response.status);
+                            const data = await response.json();
+                            console.log("Response data:", data);
+                            
+                            if (!response.ok) {
+                                throw new Error(data.error || 'Failed to process prompt');
+                            }
+                            
+                            promptInput.value = '';
+                            showProcessTime(startTime);
+                            
+                            if (data.tokens) {
+                                updateTokenCounter(data.tokens);
+                            }
+                            
+                        } catch (error) {
+                            console.error("Error in submit:", error);
+                            const messageDiv = document.createElement('div');
+                            messageDiv.className = 'message error';
+                            messageDiv.innerHTML = `
+                                <span class="timestamp">[${new Date().toLocaleTimeString()}]</span>
+                                ⚠️ Error: ${error.message}
+                            `;
+                            messageContainer.appendChild(messageDiv);
+                        } finally {
+                            isProcessing = false;
+                            spinner.style.display = 'none';
+                            cancelBtn.style.display = 'none';
+                            updateControls();
+                        }
+                    }
+                } catch (error) {
+                    console.error('Submit error:', error);
+                } finally {
+                    isProcessing = false;
+                    updateStatus('loaded');  // Reset to loaded when done
+                }
+            });
+
+            clearLogBtn.addEventListener('click', async () => {
+                console.log("Clear logs clicked");
+                try {
+                    const response = await fetch('/clear_logs', { 
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    console.log("Clear logs response:", data);
+                    
+                    if (response.ok) {
+                        logContent.innerHTML = '';
+                        console.log("Logs cleared successfully");
+                    } else {
+                        console.error("Failed to clear logs:", data.error);
+                    }
+                } catch (error) {
+                    console.error("Error clearing logs:", error);
+                }
+            });
+
+            toggleLogBtn.addEventListener('click', () => {
+                isLogVisible = !isLogVisible;
+                logContainer.classList.toggle('show');
+                toggleLogBtn.textContent = isLogVisible ? 'Hide Logs' : 'Show Logs';
+                
+                if (isLogVisible) {
+                    updateLogs();
+                    logUpdateInterval = setInterval(updateLogs, 1000);
+                } else {
+                    clearInterval(logUpdateInterval);
+                }
+            });
+
+            // Start message polling
+            setInterval(pollMessages, 1000);
+
+            // Start system stats update only after DOM is loaded
+            if (document.getElementById('cpuBar')) {  // Check if the elements exist
+                setInterval(updateSystemStats, 1000);
+            } else {
+                console.error('System stats elements not found in DOM');
+            }
+        });
+
+        // Memory management functions
+        function addMemory(content, type = 'manual') {
+            // Validate content before adding to memory
+            if (content.includes('name is') && memories.some(m => m.content.includes('name is'))) {
+                // Update existing name memory instead of adding new one
+                const nameMemory = memories.find(m => m.content.includes('name is'));
+                nameMemory.content = content;
+                nameMemory.timestamp = new Date().toISOString();
+            } else {
+                const memory = {
+                    id: Date.now(),
+                    content,
+                    timestamp: new Date().toISOString(),
+                    type,
+                    tags: extractTags(content)
+                };
+                memories.unshift(memory);
+            }
+            saveMemories();
+            renderMemories();
+        }
+
+        function extractTags(content) {
+            const tags = new Set();
+            // Extract hashtags
+            const hashtags = content.match(/#\w+/g) || [];
+            hashtags.forEach(tag => tags.add(tag.slice(1)));
+            // Add some automatic tags based on content analysis
+            if (content.toLowerCase().includes('remember')) tags.add('remember');
+            if (content.toLowerCase().includes('important')) tags.add('important');
+            return Array.from(tags);
+        }
+
+        function renderMemories() {
+            const memoriesList = document.getElementById('memoriesList');
+            memoriesList.innerHTML = '';
+            
+            memories.forEach(memory => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.innerHTML = `
+                    <div class="memory-timestamp">
+                        ${new Date(memory.timestamp).toLocaleString()}
+                    </div>
+                    <div class="memory-content">${memory.content}</div>
+                    <div class="memory-tags">
+                        ${memory.tags.map(tag => `
+                            <span class="memory-tag">${tag}</span>
+                        `).join('')}
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => {
+                    // Add memory content to prompt input
+                    document.getElementById('promptInput').value = 
+                        `Recall this memory: ${memory.content}`;
+                });
+                
+                memoriesList.appendChild(card);
+            });
+        }
+
+        function saveMemories() {
+            localStorage.setItem('aiMemories', JSON.stringify(memories));
+        }
+
+        function loadMemories() {
+            const saved = localStorage.getItem('aiMemories');
+            memories = saved ? JSON.parse(saved) : [];
+            renderMemories();
+        }
+
+        // Initialize memory system
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMemories();
+            
+            // Add memory button handler
+            document.getElementById('addMemoryBtn').addEventListener('click', () => {
+                document.getElementById('memoryModal').style.display = 'block';
+            });
+            
+            // Save memory handler
+            document.getElementById('saveMemoryBtn').addEventListener('click', () => {
+                const content = document.getElementById('memoryInput').value;
+                if (content.trim()) {
+                    addMemory(content);
+                    document.getElementById('memoryInput').value = '';
+                    document.getElementById('memoryModal').style.display = 'none';
+                }
+            });
+            
+            // Cancel memory handler
+            document.getElementById('cancelMemoryBtn').addEventListener('click', () => {
+                document.getElementById('memoryModal').style.display = 'none';
+                document.getElementById('memoryInput').value = '';
+            });
+            
+            // Clear memories handler
+            document.getElementById('clearMemoriesBtn').addEventListener('click', () => {
+                if (confirm('Are you sure you want to clear all memories?')) {
+                    memories = [];
+                    saveMemories();
+                    renderMemories();
+                }
+            });
+        });
+
+        // Add this to your existing JavaScript
+        function updateSystemStats() {
+            fetch('/system_stats')
+                .then(response => response.json())
+                .then(stats => {
+                    // Update CPU
+                    const cpuBar = document.getElementById('cpuBar');
+                    const cpuText = document.getElementById('cpuText');
+                    cpuBar.style.width = `${stats.cpu}%`;
+                    cpuText.textContent = `${Math.round(stats.cpu)}%`;
+                    updateBarColor(cpuBar, stats.cpu);
+
+                    // Update RAM
+                    const ramBar = document.getElementById('ramBar');
+                    const ramText = document.getElementById('ramText');
+                    ramBar.style.width = `${stats.ram}%`;
+                    ramText.textContent = `${Math.round(stats.ram)}%`;
+                    updateBarColor(ramBar, stats.ram);
+
+                    // Update GPU if available
+                    if (stats.gpu) {
+                        const gpuStats = document.getElementById('gpuStats');
+                        const gpuBar = document.getElementById('gpuBar');
+                        const gpuText = document.getElementById('gpuText');
+                        
+                        gpuStats.style.display = 'flex';
+                        gpuBar.style.width = `${stats.gpu.load}%`;
+                        gpuText.textContent = `${Math.round(stats.gpu.load)}%`;
+                        updateBarColor(gpuBar, stats.gpu.load);
+                    }
+                })
+                .catch(error => console.error('Error fetching system stats:', error));
+        }
+
+        function updateBarColor(bar, value) {
+            bar.classList.remove('low', 'medium', 'high');
+            if (value < 60) bar.classList.add('low');
+            else if (value < 85) bar.classList.add('medium');
+            else bar.classList.add('high');
+        }
+
+        function updateControls(loading = false) {
+            // Get all control elements
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const promptInput = document.getElementById('promptInput');
+            const submitBtn = document.getElementById('submitBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const loadingBar = document.getElementById('loadingBar');
+            const spinner = document.getElementById('spinner');
+            const statusIndicator = document.getElementById('statusIndicator');
+
+            if (loading) {
+                startBtn.disabled = true;
+                stopBtn.disabled = true;
+                promptInput.disabled = true;
+                submitBtn.disabled = true;
+                if (spinner) spinner.style.display = 'block';
+                if (cancelBtn) cancelBtn.style.display = 'inline-block';
+            } else {
+                startBtn.disabled = isRunning;
+                stopBtn.disabled = !isRunning;
+                promptInput.disabled = !isRunning || isProcessing;
+                submitBtn.disabled = !isRunning || isProcessing;
+                if (spinner) spinner.style.display = isProcessing ? 'block' : 'none';
+                if (cancelBtn) cancelBtn.style.display = isProcessing ? 'inline-block' : 'none';
+            }
+            
+            // Debug log
+            console.log('Control state updated:', {
+                isRunning,
+                isProcessing,
+                inputDisabled: promptInput.disabled,
+                submitDisabled: submitBtn.disabled
+            });
+        }
+
+        function simulateProgress(duration) {
+            const loadingBar = document.getElementById('loadingBar');
+            const progress = document.getElementById('loadingBarProgress');
+            loadingBar.style.display = 'block';
+            progress.style.width = '0%';
+
+            let startTime = Date.now();
+            
+            function update() {
+                const elapsed = Date.now() - startTime;
+                const percentage = Math.min((elapsed / duration) * 100, 95);
+                progress.style.width = percentage + '%';
+
+                if (percentage < 95) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        function completeProgress() {
+            const progress = document.getElementById('loadingBarProgress');
+            progress.style.width = '100%';
+            setTimeout(() => {
+                document.getElementById('loadingBar').style.display = 'none';
+                progress.style.width = '0%';
+            }, 300);
+        }
+
+        function formatTime(milliseconds) {
+            const seconds = Math.floor(milliseconds / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            
+            if (minutes > 0) {
+                return `Process ${minutes}m${remainingSeconds}s`;
+            } else {
+                return `Process ${remainingSeconds}s`;
+            }
+        }
+
+        function showProcessTime(startTime) {
+            const endTime = Date.now();
+            const processTime = endTime - startTime;
+            const processTimeElement = document.getElementById('processTime');
+            processTimeElement.textContent = formatTime(processTime);
+            processTimeElement.style.display = 'block';
+            
+            setTimeout(() => {
+                processTimeElement.style.display = 'none';
+            }, 5000);
+        }
+
+        function updateTokenCounter(newTokens) {
+            const counter = document.getElementById('tokenCounter');
+            const currentTotal = parseInt(counter.getAttribute('data-total') || '0');
+            const newTotal = currentTotal + newTokens;
+            counter.setAttribute('data-total', newTotal.toString());
+            counter.textContent = `Tokens: ${newTokens} | Total: ${newTotal}`;
+        }
+
+        function scrollLogsToBottom() {
+            const logContent = document.getElementById('logContent');
+            logContent.scrollTop = logContent.scrollHeight;
+        }
+
+        function updateLogs() {
+            if (isLogVisible) {
+                fetch('/get_logs')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.logs) {
+                            const logContent = document.getElementById('logContent');
+                            logContent.innerHTML = '';
+                            
+                            data.logs.forEach(log => {
+                                const entry = document.createElement('div');
+                                entry.className = 'log-entry';
+                                
+                                if (log.includes('DEBUG')) entry.classList.add('log-DEBUG');
+                                else if (log.includes('INFO')) entry.classList.add('log-INFO');
+                                else if (log.includes('WARNING')) entry.classList.add('log-WARNING');
+                                else if (log.includes('ERROR')) entry.classList.add('log-ERROR');
+                                
+                                entry.textContent = log;
+                                logContent.appendChild(entry);
+                            });
+                            
+                            scrollLogsToBottom();
+                        }
+                    })
+                    .catch(error => console.error('Error fetching logs:', error));
+            }
+        }
+
+        // Poll for new messages
+        async function pollMessages() {
+            if (isRunning) {
+                try {
+                    const response = await fetch('/get_messages');
+                    const messages = await response.json();
+                    
+                    if (messages && messages.length > 0) {
+                        let completedResponse = false;
+                        
+                        messages.forEach(msg => {
+                            const messageDiv = document.createElement('div');
+                            messageDiv.className = `message ${msg.type}`;
+                            messageDiv.innerHTML = `
+                                <span class="timestamp">[${msg.timestamp}]</span>
+                                ${msg.type === 'thinking' ? '🤔' : msg.type === 'internal' ? '💭' : '🗣️'}
+                                ${msg.content}
+                            `;
+                            document.getElementById('messageContainer').appendChild(messageDiv);
+                            
+                            // Check if this is an external message (final response)
+                            if (msg.type === 'external') {
+                                completedResponse = true;
+                                
+                                // Check for memory-related content
+                                if (msg.content.toLowerCase().includes('remember') || 
+                                    msg.content.toLowerCase().includes('memory')) {
+                                    addMemory(msg.content, 'ai');
+                                }
+                            }
+                        });
+                        
+                        // Reset processing state if we got the final response
+                        if (completedResponse) {
+                            console.log('Response completed, resetting processing state');
+                            isProcessing = false;
+                            document.getElementById('spinner').style.display = 'none';
+                            document.getElementById('cancelBtn').style.display = 'none';
+                            document.getElementById('promptInput').disabled = false;
+                            document.getElementById('submitBtn').disabled = false;
+                            updateControls();
+                        }
+                        
+                        // Scroll to bottom
+                        const container = document.getElementById('messageContainer');
+                        container.scrollTop = container.scrollHeight;
+                    }
+                } catch (error) {
+                    console.error('Error polling messages:', error);
+                    // Reset processing state on error
+                    isProcessing = false;
+                    updateControls();
+                }
+            }
+        }
+
+        function updateStatus(status) {
+            const badge = document.getElementById('statusIndicator');
+            if (!badge) return;
+
+            // Remove all status classes
+            badge.classList.remove('offline', 'loaded', 'loading', 'thinking');
+            
+            // Add appropriate class and text
+            switch(status) {
+                case 'loaded':
+                    badge.classList.add('loaded');
+                    badge.textContent = 'Loaded';
+                    break;
+                case 'offline':
+                    badge.classList.add('offline');
+                    badge.textContent = 'Offline';
+                    break;
+                case 'loading':
+                    badge.classList.add('loading');
+                    badge.textContent = 'Loading';
+                    break;
+                case 'thinking':
+                    badge.classList.add('thinking');
+                    badge.textContent = 'Thinking';
+                    break;
+            }
+            
+            console.log('Status updated to:', status); // Debug log
+        }
+    </script>
+</body>
+</html>
