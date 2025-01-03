@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # **Autonomous LLM**
 An offline, open-source large language model (LLM) system designed for autonomous reasoning, free speech generation, and inner thought processing. This project integrates modules for wake-word detection, text-to-speech synthesis, and persistent memory using SQLite.
 
@@ -129,3 +130,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 For questions or support, please contact:
 - **Author:** Anthony
 - **Email:** your-email@example.com
+=======
+# freewill
+autonomous open source llm solution experiment
+>>>>>>> a1745a944a75fcb337669cc8b0f60041c45d87c0
